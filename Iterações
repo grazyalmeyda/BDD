@@ -1,0 +1,232 @@
+Lição 2
+
+create database ifsp;
+
+use ifsp;
+create table tarefa(
+id int,
+descrição varchar (100) NOT NULL,
+realizada boolean,
+primary key (id)		
+);
+
+insert into tarefa 
+Values (1, "Comprar carne moída", true);
+
+insert into tarefa 
+Values (2, "Limpar pia", false);
+
+insert into tarefa 
+Values (3, "Fazer lição de lógica 2", true);
+
+Select * from tarefa;
+
+lição 3
+
+DROP DATABASE semana3;
+
+CREATE DATABASE semana3;
+
+USE semana3; 
+
+CREATE TABLE Usuario(
+    id INT NOT NULL,
+    nome varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
+	senha char(60) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Tarefa(
+    id INT, 
+    codigo_usuario INT,
+    descrição varchar (100) NOT NULL,
+    realizada boolean,
+    PRIMARY KEY (id),
+    FOREIGN KEY (codigo_usuario) REFERENCES Usuario(id)
+);
+    
+insert into Usuario
+values (1,'João','joao@email.com','$2a$12$skpD2tdwO68U3p0Se5QIOO5yMsv6x2OMMRqJ8WufCKOjlROehP3S2');
+
+insert into Tarefa 
+Values (1,1, "Comprar carne moída", true);
+
+insert into Tarefa 
+Values (2,1, "Limpar pia", false);
+
+insert into Tarefa 
+Values (3,1, "Fazer lição de lógica 2", true);
+
+Select * from Tarefa;
+
+Lição 4 e 5
+
+DROP DATABASE semana;
+
+CREATE DATABASE semana;
+
+USE semana;
+
+CREATE TABLE Usuário(
+    codigo int NOT NULL,
+    nome varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
+    senha char(60) NOT NULL,
+    codigo_verificacao char(36) NOT NULL,
+    verificado boolean NOT NULL,
+    PRIMARY KEY (codigo)
+);
+
+create table Tarefa(
+    codigo int,
+    codigo_usuario int,
+    descrição varchar (100) NOT NULL,
+    realizada boolean NOT NULL,
+    PRIMARY KEY (codigo),
+    FOREIGN KEY (codigo_usuario) REFERENCES Usuário(codigo)
+);
+
+create table Alteracao_senha(
+    codigo int NOT NULL,
+    codigo_usuario int NOT NULL,
+    codigo_verificacao char (36) NOT NULL,
+	gerado_em datetime NOT NULL,
+    utilizado boolean NOT NULL,
+    PRIMARY KEY (codigo),
+    FOREIGN KEY (codigo_usuario) REFERENCES Usuário(codigo)
+);
+
+insert into Usuário
+values (1, 'João','joão@gmail.com', '$2a$12$skpD2tdwO68U3p0Se5QIOO5yMsv6x2OMMRqJ8WufCKOjlROehP3S2', '0833d838-f4e0-4545-8d2f-0e3f6698186a', false),
+       (2, 'Maria','maria@gmail.com', '$2a$12$0lVnAOh.BFhtG45IawV6bO9hJCMfxCPp.mYUSBw3P56MorXPCPsba', '4a2cf520-1d76-40df-954a-67db81fb2671', false),
+       (3, 'Esther','esther@gmail.com', '$2a$12$D1X7nJP0.davs6XlR95JyOMFNg2psXiW9pUNzkB1p9g3AY984z0uK', 'ba5487dd-03a2-42e7-98b7-95c3c39b4c4c', false);
+
+insert into Tarefa
+values (1,1,'Fazer comida',true), (2,1,'Arrumar a casa',false);
+
+insert into Tarefa
+values (4,2,'Fazer comida',false), (5,2,'Arrumar a casa',true);
+
+insert into Tarefa
+values (7,3,'Fazer comida',true), (8,1,'Arrumar a casa',false);
+
+insert into Alteracao_senha
+values (1, 3, '438599c1-3439-4ddc-9df7-4056690fb2d3', '2022-04-04 17:52:45',false);
+
+SELECT * FROM Usuário;
+SELECT * FROM Alteracao_senha;
+
+lição 7 e 8
+
+DROP TABLE Lista;
+
+CREATE DATABASE iteração5;
+
+USE iteração5;
+
+CREATE TABLE Usuário(
+codigo int NOT NULL,
+nome varchar(255) NOT NULL,
+email varchar(255) NOT NULL,
+senha char(60) NOT NULL,
+codigo_verificacao char(36) NOT NULL,
+verificado boolean NOT NULL,
+PRIMARY KEY (codigo)
+);
+
+CREATE TABLE Tarefa(
+codigo INT NOT NULL,
+codigo_lista INT NOT NULL,
+descrição VARCHAR (100) NOT NULL,
+data_tarefa DATE,
+realizada boolean,
+PRIMARY KEY (codigo),
+FOREIGN KEY (codigo_lista) REFERENCES Lista(codigo) ON DELETE CASCADE
+);
+
+create table Alteracao_senha(
+codigo int NOT NULL,
+codigo_usuario int NOT NULL,
+codigo_verificacao char (36) NOT NULL,
+gerado_em datetime NOT NULL,
+utilizado boolean NOT NULL,
+PRIMARY KEY (codigo),
+FOREIGN KEY (codigo_usuario) REFERENCES Usuário(codigo)
+);
+
+CREATE TABLE Lista(
+codigo INT NOT NULL,
+nome VARCHAR (100) NOT NULL,
+cor CHAR (10) NOT NULL,
+codigo_usuario INT NOT NULL,
+PRIMARY KEY (codigo),
+FOREIGN KEY (codigo_usuario) REFERENCES Usuário(codigo)
+);
+
+insert into Usuário
+values (1, 'João','joão@gmail.com', '$2a$12$skpD2tdwO68U3p0Se5QIOO5yMsv6x2OMMRqJ8WufCKOjlROehP3S2', '0833d838-f4e0-4545-8d2f-0e3f6698186a', false),
+       (2, 'Maria','maria@gmail.com', '$2a$12$0lVnAOh.BFhtG45IawV6bO9hJCMfxCPp.mYUSBw3P56MorXPCPsba', '4a2cf520-1d76-40df-954a-67db81fb2671', false),
+	   (3, 'Esther','esther@gmail.com', '$2a$12$D1X7nJP0.davs6XlR95JyOMFNg2psXiW9pUNzkB1p9g3AY984z0uK', 'ba5487dd-03a2-42e7-98b7-95c3c39b4c4c', false);
+
+INSERT INTO Lista VALUES
+		(1, 'Escola', '00FF7F' , 1),
+		(2, 'Contas', 'DAA520', 1),
+		(3, 'Trabalhos', '8B0000', 1),
+		(4, 'Família', 'FF69B4', 2),
+		(5, 'Faculdade', 'DB7093', 2),
+		(6, 'Séries', 'FA8072', 2),
+		(7, 'Lições', 'C71585', 3),
+		(8, 'Livros', '7B68EE', 3),
+		(9, 'Sair', 'BC8F8F' , 3);
+
+insert into Tarefa
+values (1,1,'Fazer comida','2022-04-18' ,true), (2,1,'Arrumar a casa','2022-04-18', false), (3,1,'Compras','2022-04-18',false);
+
+insert into Tarefa
+values (4,2,'Fazer comida','2022-04-18',false), (5,2,'Arrumar a casa','2022-04-18',true), (6,2,'Compras','2022-04-18',false);
+
+insert into Tarefa
+values (7,3,'Fazer comida','2022-04-18',true), (8,3,'Arrumar a casa','2022-04-18',false), (9,3,'Compras','2022-04-18',false);
+
+insert into Tarefa
+values (10,4,'Fazer comida','2022-04-18',true), (11,4,'Arrumar a casa','2022-04-18',false), (12,4,'Compras','2022-04-18',false);
+
+insert into Tarefa
+values (13,5,'Fazer comida','2022-04-18',false), (14,5,'Arrumar a casa','2022-04-18',true), (15,5,'Compras','2022-04-18',false);
+
+insert into Tarefa
+values (16,6,'Fazer comida','2022-04-18',true), (17,6,'Arrumar a casa','2022-04-18',false), (18,6,'Compras','2022-04-18',false);
+
+insert into Tarefa
+values (19,7,'Fazer comida','2022-04-18',true), (20,7,'Arrumar a casa','2022-04-18',false), (21,7,'Compras','2022-04-18',false);
+
+insert into Tarefa
+values (22,8,'Fazer comida','2022-04-18',false), (23,8,'Arrumar a casa','2022-04-18',true), (24,8,'Compras','2022-04-18',false);
+
+insert into Tarefa
+values (25,9,'Fazer comida','2022-04-18',true), (26,9,'Arrumar a casa','2022-04-18',false), (27,9,'Compras','2022-04-18',false);
+
+
+insert into Alteracao_senha
+values (1, 3, '438599c1-3439-4ddc-9df7-4056690fb2d3', '2022-04-04 17:52:45',false);
+
+SELECT * FROM Usuário;
+SELECT * FROM Alteracao_senha;
+
+SELECT *
+FROM Tarefa
+WHERE data_tarefa = '2022-04-18'
+AND codigo_lista IN (1,2,3);
+
+SELECT *
+FROM Tarefa 
+WHERE data_tarefa < '2022-04-18'
+AND realizada = false
+AND codigo_lista IN (1,2,3);
+
+DELETE FROM Lista WHERE codigo = 1;
+
+DELETE FROM Tarefa WHERE codigo_lista = 1;
+
+iteração
