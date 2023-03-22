@@ -1,0 +1,19 @@
+create database ifsp;
+drop database ifsp;
+use ifsp;
+create table tarefa(
+id int,
+descrição varchar (100) NOT NULL,
+primary key (id)		
+);
+
+insert into tarefa 
+Values (1, "Comprar carne moída");
+
+insert into tarefa 
+Values (2, "Limpar pia");
+
+insert into tarefa 
+Values (3, "Fazer lição de lógica 2");
+
+Select * from tarefa;
