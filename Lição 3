@@ -1,0 +1,36 @@
+DROP DATABASE semana3;
+
+CREATE DATABASE semana3;
+
+USE semana3; 
+
+CREATE TABLE Usuario(
+    id INT NOT NULL,
+    nome varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
+	senha char(60) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Tarefa(
+    id INT, 
+    codigo_usuario INT,
+    descrição varchar (100) NOT NULL,
+    realizada boolean,
+    PRIMARY KEY (id),
+    FOREIGN KEY (codigo_usuario) REFERENCES Usuario(id)
+);
+    
+insert into Usuario
+values (1,'João','joao@email.com','$2a$12$skpD2tdwO68U3p0Se5QIOO5yMsv6x2OMMRqJ8WufCKOjlROehP3S2');
+
+insert into Tarefa 
+Values (1,1, "Comprar carne moída", true);
+
+insert into Tarefa 
+Values (2,1, "Limpar pia", false);
+
+insert into Tarefa 
+Values (3,1, "Fazer lição de lógica 2", true);
+
+Select * from Tarefa;
